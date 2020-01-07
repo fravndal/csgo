@@ -1,8 +1,19 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp3.0</TargetFramework>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\database\database.csproj" />
+    <ProjectReference Include="..\entity\entity.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Data\CSGO Weapon Dataset.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 
 </Project>
