@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace entity
+namespace Core.Entity
 {
     public class Weapon
     {
@@ -24,9 +24,5 @@ namespace entity
         public int BulletRange { get; set; }
         public string HoldToShoot { get; set; }
         public string Tracers { get; set; }
-
-        
-
-
     }
 }
