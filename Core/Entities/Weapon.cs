@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Core.Entity
+﻿namespace Core.Entities
 {
-    public class Weapon
+    public class Weapon : BaseEntity
     {
-        public int Id { get; set; }
         public string WeaponName { get; set; }
         public string WeaponType { get; set; }
         public int Price { get; set; }
