@@ -1,10 +1,9 @@
-﻿namespace Infrastructure.EntityFrameworkDatabase.Repository
+﻿namespace Infrastructure.SQLite.Repositories
 {
-    using Microsoft.EntityFrameworkCore;
+    using Core.Entities;
     using Core.Interfaces;
     using System.Linq;
     using System.Collections.Generic;
-    using Core.Entities;
 
     public class WeaponRepository : IWeaponRepository
     {
