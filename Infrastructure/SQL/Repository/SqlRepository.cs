@@ -9,12 +9,10 @@
     public class SqlRepository : IRepository
     {
         private readonly SqlContext _dbContext;
-        private readonly ILogger<SqlRepository> _logger;
 
-        public SqlRepository(SqlContext dbContext, ILoggerFactory loggerFactory)
+        public SqlRepository(SqlContext dbContext)
         {
             _dbContext = dbContext;
-            _logger = loggerFactory.CreateLogger<SqlRepository>();
         }
 
         public T GetById<T>(int id) where T : BaseEntity
@@ -29,7 +27,6 @@
 
         public void Add<T>(T entity) where T : BaseEntity
         {
-                _logger.LogInformation($"{entity}");
                 _dbContext.Set<T>().Add(entity);
                 _dbContext.SaveChanges();
         }

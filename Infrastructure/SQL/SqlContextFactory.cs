@@ -16,18 +16,5 @@ namespace Infrastructure.SQL
 
             return new SqlContext(optionsBuilder.Options);
         }
-
-        //public static SqlContext GetDbContext()
-        //{
-        //    var services = new ServiceCollection();
-
-
-        //    services.AddDbContext<SqlContext>(options => options.UseSqlServer(
-        //            "Data Source=localhost;Initial Catalog=CSGO;Integrated Security=True;"
-        //            ));
-        //    services.AddDbContext<SqlContext>(options => options.UseSqlServer("IMDBDb"));
-        //    var serviceProvider = services.BuildServiceProvider();
-        //    return _context = serviceProvider.GetService<SqlContext>();
-        //}
     }
 }
