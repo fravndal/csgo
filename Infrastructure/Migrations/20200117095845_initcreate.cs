@@ -11,7 +11,7 @@ namespace Infrastructure.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("Sqlite:Autoincrement", true),
+                        .Annotation("SqlServer:Identity", "1, 1"),
                     WeaponName = table.Column<string>(nullable: true),
                     WeaponType = table.Column<string>(nullable: true),
                     Price = table.Column<int>(nullable: false),

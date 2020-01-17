@@ -1,19 +1,18 @@
-﻿namespace Infrastructure.SQLite
+﻿namespace Infrastructure.SQL
 {
     using Core.Entities;
     using Microsoft.EntityFrameworkCore;
 
-    public class CSGOContext : DbContext
+    public class SqlContext : DbContext
     {
-        //public CSGOContext(DbContextOptions options) : base(options)
-        //{
-        //}
-
+        public SqlContext(DbContextOptions options) : base(options)
+        {
+        }
         public DbSet<Weapon> Weapons { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-            => options.UseSqlite("Data Source=csgo.db");
-        
+            => options.UseSqlServer("Data Source=localhost;Initial Catalog=CSGO;Integrated Security=True;");
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             builder.Entity<Weapon>().HasKey(sc => new { sc.Id });

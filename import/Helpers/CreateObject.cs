@@ -10,7 +10,7 @@
 
             return new Weapon
             {
-                Id = id,
+                //Id = id,
                 WeaponName = column[0],
                 WeaponType = column[1],
                 Price = int.Parse(column[2].Replace("$", "").Replace(" ", "").Trim()),

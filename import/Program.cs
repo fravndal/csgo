@@ -1,11 +1,13 @@
-﻿using Core.Interfaces;
-using Infrastructure.SQLite.Repositories;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-
-namespace Import
+﻿namespace Import
 {
-    
+    using Core.Interfaces;
+    using Microsoft.Extensions.Configuration;
+    using Microsoft.Extensions.DependencyInjection;
+    using Microsoft.Extensions.Logging;
+    using System.IO;
+    using Microsoft.Data.SqlClient;
+    using Infrastructure.SQL.Repository;
+
     class Program
     {
         static void Main(string[] args)
@@ -13,25 +15,37 @@ namespace Import
 
             var serviceProvider = new ServiceCollection()
                 .AddLogging()
-                .AddSingleton<IRepository, DbRepository>()
+                .AddSingleton<IRepository, SqlRepository>()
                 .BuildServiceProvider();
 
-            serviceProvider
-                .GetService<ILoggerFactory>();
-              
+            //var logger = serviceProvider.GetService<ILoggerFactory>()
+            //    .CreateLogger<Program>();
 
-            var logger = serviceProvider.GetService<ILoggerFactory>()
-                .CreateLogger<Program>();
-
-            logger.LogDebug("Starting application");
+            //logger.LogDebug("Starting application");
 
             var service = serviceProvider.GetService<IRepository>();
             var weaponList = FileReader.ReadFile();
-            
-            foreach(var weapon in weaponList)
+
+            var builder = new ConfigurationBuilder()
+               .SetBasePath(Directory.GetCurrentDirectory())
+               .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
+
+            IConfigurationRoot configuration = builder.Build();
+
+            var connString = configuration.GetConnectionString("csgo");
+
+            using (SqlConnection connection = new SqlConnection(connString))
             {
-                service.Add(weapon);
+                connection.Open();
+                foreach (var weapon in weaponList)
+                {
+                    service.Add(weapon);
+                }
+                connection.Close();
             }
+
+
+            
         }
     }
 }
