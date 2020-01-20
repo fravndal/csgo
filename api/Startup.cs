@@ -1,18 +1,23 @@
+using Api.GraphQL;
+using Core.Interfaces;
+using GraphQL;
+using GraphQL.Server;
+using GraphQL.Server.Ui.Playground;
+using Infrastructure.SQL;
+using Infrastructure.SQL.Repository;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Formatters;
+using Microsoft.AspNetCore.Server.Kestrel.Core;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
+
 namespace Api
 {
-    using Api.GraphQL;
-    using Core.Interfaces;
-    using global::GraphQL;
-    using global::GraphQL.Server;
-    using global::GraphQL.Server.Ui.Playground;
-    using Infrastructure.SQL;
-    using Infrastructure.SQL.Repository;
-    using Microsoft.AspNetCore.Builder;
-    using Microsoft.AspNetCore.Hosting;
-    using Microsoft.EntityFrameworkCore;
-    using Microsoft.Extensions.Configuration;
-    using Microsoft.Extensions.DependencyInjection;
-    using Microsoft.Extensions.Hosting;
+
 
     public class Startup
     {
@@ -33,9 +38,7 @@ namespace Api
                 builder.WithOrigins("https://localhost:5001/graphql", "http://localhost:3000").AllowAnyHeader().AllowAnyMethod();
             }));
 
-            services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
-            services.AddScoped<CSGOSchema>();
-            services.AddGraphQL(o => { o.ExposeExceptions = true; }).AddGraphTypes(ServiceLifetime.Scoped);
+            
 
             //register the DbContext
             services.AddDbContext<SqlContext>(o => o.UseSqlServer(Configuration.GetConnectionString("csgo")));
@@ -44,6 +47,22 @@ namespace Api
             services.AddScoped<IRepository, SqlRepository>();
 
             services.AddControllers();
+
+            // If using Kestrel:
+            services.Configure<KestrelServerOptions>(options =>
+            {
+                options.AllowSynchronousIO = true;
+            });
+
+            // If using IIS:
+            services.Configure<IISServerOptions>(options =>
+            {
+                options.AllowSynchronousIO = true;
+            });
+
+            services.AddScoped<IDependencyResolver>(s => new FuncDependencyResolver(s.GetRequiredService));
+            services.AddScoped<CSGOSchema>();
+            services.AddGraphQL(o => { o.ExposeExceptions = true; }).AddGraphTypes(ServiceLifetime.Scoped);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
