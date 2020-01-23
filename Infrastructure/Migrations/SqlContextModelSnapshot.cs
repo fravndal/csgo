@@ -80,6 +80,36 @@ namespace Infrastructure.Migrations
 
                     b.ToTable("Weapons");
                 });
+
+            modelBuilder.Entity("Core.Entities.WeaponImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("WeaponId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WeaponImageName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WeaponId")
+                        .IsUnique();
+
+                    b.ToTable("WeaponsImage");
+                });
+
+            modelBuilder.Entity("Core.Entities.WeaponImage", b =>
+                {
+                    b.HasOne("Core.Entities.Weapon", "Weapon")
+                        .WithOne("WeaponImage")
+                        .HasForeignKey("Core.Entities.WeaponImage", "WeaponId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
 #pragma warning restore 612, 618
         }
     }

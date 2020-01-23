@@ -34,10 +34,39 @@ namespace Infrastructure.Migrations
                 {
                     table.PrimaryKey("PK_Weapons", x => x.Id);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "WeaponsImage",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    WeaponImageName = table.Column<string>(nullable: true),
+                    WeaponId = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WeaponsImage", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_WeaponsImage_Weapons_WeaponId",
+                        column: x => x.WeaponId,
+                        principalTable: "Weapons",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WeaponsImage_WeaponId",
+                table: "WeaponsImage",
+                column: "WeaponId",
+                unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "WeaponsImage");
+
             migrationBuilder.DropTable(
                 name: "Weapons");
         }

@@ -24,7 +24,8 @@
             //logger.LogDebug("Starting application");
 
             var service = serviceProvider.GetService<IRepository>();
-            var weaponList = FileReader.ReadFile();
+            var weaponList = FileReader.ReadFileWeapons();
+            var weaponsImageList = FileReader.ReadFileWeaponsImage();
 
             //var builder = new ConfigurationBuilder()
             //   .SetBasePath(Directory.GetCurrentDirectory())
@@ -33,11 +34,17 @@
             //IConfigurationRoot configuration = builder.Build();
 
             //var connString = configuration.GetConnectionString("csgo");
-                
+            
             foreach (var weapon in weaponList)
             {
                 service.Add(weapon);
             }
+
+            foreach (var weaponImage in weaponsImageList)
+            {
+                service.Add(weaponImage);
+            }
+
         }
     }
 }

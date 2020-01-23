@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(SqlContext))]
-    [Migration("20200117100645_initcreate")]
+    [Migration("20200123135555_initcreate")]
     partial class initcreate
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -81,6 +81,36 @@ namespace Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Weapons");
+                });
+
+            modelBuilder.Entity("Core.Entities.WeaponImage", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("WeaponId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("WeaponImageName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WeaponId")
+                        .IsUnique();
+
+                    b.ToTable("WeaponsImage");
+                });
+
+            modelBuilder.Entity("Core.Entities.WeaponImage", b =>
+                {
+                    b.HasOne("Core.Entities.Weapon", "Weapon")
+                        .WithOne("WeaponImage")
+                        .HasForeignKey("Core.Entities.WeaponImage", "WeaponId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

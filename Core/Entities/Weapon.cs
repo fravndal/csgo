@@ -1,8 +1,9 @@
-﻿namespace Core.Entities
+﻿using System.Collections.Generic;
+
+namespace Core.Entities
 {
     public class Weapon : BaseEntity
     {
-        public int Id { get; set; }
         public string WeaponName { get; set; }
         public string WeaponType { get; set; }
         public int Price { get; set; }
@@ -20,5 +21,6 @@
         public int BulletRange { get; set; }
         public string HoldToShoot { get; set; }
         public string Tracers { get; set; }
+        public WeaponImage WeaponImage { get; set; }
     }
 }

@@ -23,6 +23,9 @@
     <None Update="Data\CSGO Weapon Dataset.csv">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="Data\CSGO_Weapon_Image_Dataset.csv">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

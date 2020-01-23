@@ -10,7 +10,6 @@
 
             return new Weapon
             {
-                //Id = id,
                 WeaponName = column[0],
                 WeaponType = column[1],
                 Price = int.Parse(column[2].Replace("$", "").Replace(" ", "").Trim()),
@@ -28,6 +27,16 @@
                 BulletRange = int.Parse(column[14].Replace(" ", "").Trim()),
                 HoldToShoot = column[15],
                 Tracers = column[16]
+            };
+        }
+        public static WeaponImage CreateWeaponImage(this string line, int id)
+        {
+            var column = line.Split(";");
+
+            return new WeaponImage
+            {
+                WeaponImageName = column[1],
+                WeaponId = id
             };
         }
     }
