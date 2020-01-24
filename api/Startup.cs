@@ -1,4 +1,6 @@
 using Api.GraphQL;
+using Api.Profiles;
+using AutoMapper;
 using Core.Interfaces;
 using GraphQL;
 using GraphQL.Server;
@@ -45,6 +47,14 @@ namespace Api
 
             // register the repository
             services.AddScoped<IRepository, SqlRepository>();
+            services.AddScoped<IWeaponRepository, WeaponRepository>();
+
+            var mappingConfig = new MapperConfiguration(mc =>
+            {
+                mc.AddProfile(new WeaponProfile());
+            });
+            IMapper mapper = mappingConfig.CreateMapper();
+            services.AddSingleton(mapper);
 
             services.AddControllers();
 

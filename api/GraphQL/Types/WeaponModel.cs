@@ -11,7 +11,7 @@ namespace Api.GraphQL.Types
     {
         public WeaponModel()
         {
-            
+            Field(t => t.Id);
             Field(t => t.WeaponName);
             Field(t => t.WeaponType);
             Field(t => t.Price);
@@ -29,7 +29,6 @@ namespace Api.GraphQL.Types
             Field(t => t.BulletRange);
             Field(t => t.HoldToShoot);
             Field(t => t.Tracers);
-            Field(t => t.Id);
         }
     }
 }

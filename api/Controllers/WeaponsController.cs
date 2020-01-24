@@ -1,6 +1,9 @@
 ﻿namespace Api.Controllers
 {
+    using System.Collections.Generic;
     using System.Linq;
+    using Api.Models;
+    using AutoMapper;
     using Core.Entities;
     using Core.Interfaces;
     using Microsoft.AspNetCore.Mvc;
@@ -9,24 +12,33 @@
     [ApiController]
     public class WeaponsController : ControllerBase
     {
-        private IRepository _repo;
-        public WeaponsController(IRepository repo)
+        private IWeaponRepository _repo;
+        private readonly IMapper _mapper;
+
+        public WeaponsController(IWeaponRepository repo, IMapper mapper)
         {
             _repo = repo;
+            _mapper = mapper;
         }
 
         [HttpGet("{id}")]
         public IActionResult GetWeapon(int id)
         {
-            var weaponsFromRepo = _repo.GetById<Weapon>(id);
+            var weaponsFromRepo = _repo.GetWeaponById(id);
+
+            var weapons = _mapper.Map<IEnumerable<WeaponDto>>(weaponsFromRepo);
+
             return Ok(weaponsFromRepo);
         }
 
         [HttpGet]
         public IActionResult GetWeapons()
         {
-            var weaponsFromRepo = _repo.List<Weapon>();
-            return Ok(weaponsFromRepo);
+            var weaponsFromRepo = _repo.GetWeapons();
+
+            var weapons = _mapper.Map<IEnumerable<WeaponDto>>(weaponsFromRepo);
+
+            return Ok(weapons);
         }
 
     }
