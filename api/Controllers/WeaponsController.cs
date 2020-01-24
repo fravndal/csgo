@@ -26,9 +26,9 @@
         {
             var weaponsFromRepo = _repo.GetWeaponById(id);
 
-            var weapons = _mapper.Map<IEnumerable<WeaponDto>>(weaponsFromRepo);
+            var weapons = _mapper.Map<WeaponDto>(weaponsFromRepo);
 
-            return Ok(weaponsFromRepo);
+            return Ok(weapons);
         }
 
         [HttpGet]

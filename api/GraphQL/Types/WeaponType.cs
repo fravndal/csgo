@@ -1,15 +1,15 @@
 ﻿using GraphQL.Types;
-using Core.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Api.Models;
 
 namespace Api.GraphQL.Types
 {
-    public class WeaponModel : ObjectGraphType<Weapon>
+    public class WeaponType : ObjectGraphType<WeaponDto>
     {
-        public WeaponModel()
+        public WeaponType()
         {
             Field(t => t.Id);
             Field(t => t.WeaponName);
@@ -29,6 +29,7 @@ namespace Api.GraphQL.Types
             Field(t => t.BulletRange);
             Field(t => t.HoldToShoot);
             Field(t => t.Tracers);
+            Field(t => t.WeaponImageName);
         }
     }
 }

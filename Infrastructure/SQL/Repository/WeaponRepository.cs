@@ -26,11 +26,6 @@
 
         public IEnumerable<Weapon> GetWeapons()
         {
-            var weaponList = _dbContext.Weapons
-                .Include(x => x.WeaponImage);
-                
-                
-            
             return _dbContext.Weapons
                 .Include(x => x.WeaponImage);
         }

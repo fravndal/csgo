@@ -1,4 +1,6 @@
 ﻿using Api.GraphQL.Types;
+using Api.Models;
+using AutoMapper;
 using Core.Entities;
 using Core.Interfaces;
 using GraphQL.Types;
@@ -11,11 +13,20 @@ namespace Api.GraphQL
 {
     public class CSGOQuery : ObjectGraphType
     {
-        public CSGOQuery(IRepository repo)
+        public CSGOQuery(IWeaponRepository repo, IMapper mapper)
         {
-            Field<ListGraphType<WeaponModel>>(
+            Field<ListGraphType<WeaponType>>(
                 "weapons",
-                resolve: context => repo.List<Weapon>()
+                resolve: context =>
+                {
+
+                    var weaponsFromRepo = repo.GetWeapons();
+
+                    var weapons = mapper.Map<IEnumerable<WeaponDto>>(weaponsFromRepo);
+
+                    return weapons;
+                }
+
             );
         }
     }
