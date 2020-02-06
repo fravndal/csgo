@@ -30,6 +30,7 @@ namespace Api.GraphQL.Types
             Field(t => t.HoldToShoot);
             Field(t => t.Tracers);
             Field(t => t.WeaponImageName);
+            Field(t => t.Slug);
         }
     }
 }

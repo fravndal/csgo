@@ -7,7 +7,7 @@ namespace Core.Interfaces
 {
     public interface IWeaponRepository
     {
-        Weapon GetWeaponById(int id);
+        Weapon GetWeaponBySlug(string slug);
         IEnumerable<Weapon> GetWeapons();
     }
 }

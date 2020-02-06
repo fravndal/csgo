@@ -31,13 +31,13 @@ namespace Api.GraphQL
             Field<WeaponType>(
                 "weapon",
                 arguments: new QueryArguments(
-                new QueryArgument<IntGraphType>() { Name = "id" }
+                new QueryArgument<StringGraphType>() { Name = "slug" }
             ),
                 resolve: context =>
                 {
-                    int id = context.GetArgument<int>("id");
+                    string slug = context.GetArgument<string>("slug");
 
-                    var weaponFromRepo = repo.GetWeaponById(id);
+                    var weaponFromRepo = repo.GetWeaponBySlug(slug);
 
                     var weapon = mapper.Map<WeaponDto>(weaponFromRepo);
 

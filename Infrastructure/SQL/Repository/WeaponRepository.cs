@@ -16,11 +16,11 @@
             _dbContext = dbContext;
         }
 
-        public Weapon GetWeaponById(int id)
+        public Weapon GetWeaponBySlug(string slug)
         {
             return _dbContext.Weapons
                 .Include(x => x.WeaponImage)
-                .FirstOrDefault(z => z.Id == id);
+                .FirstOrDefault(z => z.Slug == slug);
         }
 
         public IEnumerable<Weapon> GetWeapons()

@@ -31,10 +31,10 @@
             return Ok(weapons);
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetWeapon(int id)
+        [HttpGet("{slug}")]
+        public IActionResult GetWeapon(string slug)
         {
-            var weaponFromRepo = _repo.GetWeaponById(id);
+            var weaponFromRepo = _repo.GetWeaponBySlug(slug);
 
             var weapon = _mapper.Map<WeaponDto>(weaponFromRepo);
 
