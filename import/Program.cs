@@ -18,23 +18,10 @@
                 .AddSingleton<IRepository, SqlRepository>()
                 .BuildServiceProvider();
 
-            //var logger = serviceProvider.GetService<ILoggerFactory>()
-            //    .CreateLogger<Program>();
-
-            //logger.LogDebug("Starting application");
-
             var service = serviceProvider.GetService<IRepository>();
             var weaponList = FileReader.ReadFileWeapons();
             var weaponsImageList = FileReader.ReadFileWeaponsImage();
 
-            //var builder = new ConfigurationBuilder()
-            //   .SetBasePath(Directory.GetCurrentDirectory())
-            //   .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true);
-
-            //IConfigurationRoot configuration = builder.Build();
-
-            //var connString = configuration.GetConnectionString("csgo");
-            
             foreach (var weapon in weaponList)
             {
                 service.Add(weapon);

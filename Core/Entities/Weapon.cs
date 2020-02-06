@@ -21,6 +21,7 @@ namespace Core.Entities
         public int BulletRange { get; set; }
         public string HoldToShoot { get; set; }
         public string Tracers { get; set; }
+        public string Slug { get; set; }
         public WeaponImage WeaponImage { get; set; }
     }
 }

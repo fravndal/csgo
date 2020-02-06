@@ -8,6 +8,8 @@
         {
             var column = line.Split(";");
 
+            var slug = column[0].CreateSlug();
+
             return new Weapon
             {
                 WeaponName = column[0],
@@ -26,7 +28,8 @@
                 TaggingPower = column[13],
                 BulletRange = int.Parse(column[14].Replace(" ", "").Trim()),
                 HoldToShoot = column[15],
-                Tracers = column[16]
+                Tracers = column[16],
+                Slug = slug
             };
         }
         public static WeaponImage CreateWeaponImage(this string line, int id)
