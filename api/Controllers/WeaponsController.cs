@@ -21,16 +21,6 @@
             _mapper = mapper;
         }
 
-        [HttpGet("{id}")]
-        public IActionResult GetWeapon(int id)
-        {
-            var weaponsFromRepo = _repo.GetWeaponById(id);
-
-            var weapons = _mapper.Map<WeaponDto>(weaponsFromRepo);
-
-            return Ok(weapons);
-        }
-
         [HttpGet]
         public IActionResult GetWeapons()
         {
@@ -40,6 +30,18 @@
 
             return Ok(weapons);
         }
+
+        [HttpGet("{id}")]
+        public IActionResult GetWeapon(int id)
+        {
+            var weaponFromRepo = _repo.GetWeaponById(id);
+
+            var weapon = _mapper.Map<WeaponDto>(weaponFromRepo);
+
+            return Ok(weapon);
+        }
+
+        
 
     }
 }

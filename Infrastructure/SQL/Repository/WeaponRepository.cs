@@ -20,7 +20,6 @@
         {
             return _dbContext.Weapons
                 .Include(x => x.WeaponImage)
-                .ThenInclude(y => y.WeaponImageName)
                 .FirstOrDefault(z => z.Id == id);
         }
 
